@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>PetShop</title>
+    <style>
+        /* Reset de estilos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            font-size: 18px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s;
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+
+        nav ul li a:hover {
+            background-color: #e5e5e5;
+            color: #007bff;
+        }
+
+        
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Estilos para o banner */
+        #banner {
+            text-align: center;
+        }
+
+        #banner img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .produto-imagem {
+            width: 200px; 
+            height: 200px; 
+            object-fit: cover; 
+            display: block; 
+            margin: 10 auto; 
+        }
+
+        /* Estilos para a seção de gerenciamento de perfil */
+        #gerenciamento-perfil {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #gerenciamento-perfil h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .perfil-info {
+            margin-bottom: 20px;
+        }
+
+        .lista-pets {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+
+        .lista-pets h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        li img {
+            max-width: 100px; /* Define a largura máxima das imagens dos pets */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #adicionar-pet {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #adicionar-pet:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para o carrinho de compras */
+        #carrinho-compras {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #carrinho-compras h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* Estilos para os botões de adicionar ao carrinho */
+        .btn-add-carrinho {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s; 
+            width: 130px; 
+            height: 50px; 
+        }
+
+        .btn-add-carrinho-container {
+            text-align: right;
+        }
+
+        .btn-add-carrinho:hover {
+            background-color: #0056b3;
+        }
+
+        .lista-produtos {
+            margin-bottom: 20px;
+        }
+
+        .produto {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .produto img {
+            max-width: 100px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .info-produto {
+            flex-grow: 1;
+        }
+
+        .info-produto p {
+            margin: 0;
+        }
+
+        .quantidade {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .quantidade label {
+            margin-right: 10px;
+        }
+
+        .quantidade input {
+            width: 50px;
+        }
+
+        .remover-produto {
+            background-color: #ff3333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .remover-produto:hover {
+            background-color: #cc0000;
+        }
+
+        .total {
+            text-align: right;
+        }
+
+        .total p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #finalizar-compra {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #finalizar-compra:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para a seção de boas-vindas e promoções */
+        #boas-vindas {
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 40px;
+        }
+
+        #boas-vindas h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        #boas-vindas p {
+            font-size: 18px;
+        }
+
+        /* Estilos para os botões de acesso rápido */
+        #botoes-rapidos {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #botoes-rapidos .btn-destaque {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 20px;
+            margin-right: 20px;
+        }
+
+        /* Estilos para os links de login/cadastro e área do cliente */
+        #links-cliente {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #links-cliente a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 18px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PETzito</h1>
+        <nav>
+            <ul>
+                <li><a href="#catalogo-produtos">Produtos</a></li>
+                <li><a href="#catalogo-servicos">Serviços</a></li>
+                <li><a href="#area-cliente">Área do Cliente</a></li>
+                <li><a href="#carrinho"><i class="fas fa-shopping-cart"></i> Carrinho</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="banner">
+        <img src="petBanner.jpg">
+    </section>
+
+     <!-- Seção de Boas-vindas e Promoções -->
+    <section id="boas-vindas">
+        <h2>Bem-Vindo ao PETzito</h2>
+        <p>Encontre os melhores produtos e serviços para o seu pet aqui.</p>
+    </section>
+
+    <!-- Seção de Botões de Acesso Rápido -->
+    <section id="botoes-rapidos">
+        <button class="btn-destaque">Ver Produtos</button>
+        <button class="btn-destaque">Ver Serviços</button>
+    </section>
+
+    <!-- Seção de Links para Login/Cadastro e Área do Cliente -->
+    <section id="links-cliente">
+        <a href="#login">Login</a>
+        <a href="#cadastro">Cadastro</a>
+        <a href="#area-cliente">Área do Cliente</a>
+    </section>
+
+    <section id="catalogo-produtos">
+        <h2>Catálogo de Produtos</h2>
+    
+        <!-- Categoria: Ração Seca -->
+        <div class="produto-categoria">
+            <h3>Ração Seca</h3>
+    
+            <!-- Produto 1 -->
+            <div class="produto">
+                <img class="produto-imagem" src="racaoSeca1.jpg" alt="Ração Seca: Cães">
+                <h4>Ração Seca Premium Cães</h4>
+                <p>Descrição do Produto 1. Ração Pedrigree ADULTO.</p>
+                <p><strong>Preço: R$ 50,00</strong></p>
+                <div class="btn-add-carrinho-container"></div>
+                    <button class="btn-add-carrinho">Adicionar ao Carrinho</button> 
+            </div>
+    
+            <!-- Produto 2 -->
+            <div class="produto">
+                <img class="produto-imagem" src="racaoSeca2.jpg" alt="Ração Seca: Gatos">
+                <h4>Ração Seca Premium Gatos</h4>
+                <p>Descrição do Produto 2. Ração Whiskas Sabor Carne.</p>
+                <p><strong>Preço: R$ 45,00</strong></p>
+                <div class="btn-add-carrinho-container"></div>
+                    <button class="btn-add-carrinho">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    
+        <!-- Categoria: Ração Úmida -->
+        <div class="produto-categoria">
+            <h3>Ração Úmida</h3>
+    
+            <!-- Produto 1 -->
+            <div class="produto">
+                <img class="produto-imagem" src="racaoUmida1.jpg" alt="Ração Úmida: Cães">
+                <h4>Ração Úmida Premium Cães</h4>
+                <p>Descrição do Produto 1. Ração úmida para Cães Adultos Pedigree.</p>
+                <p><strong>Preço: R$ 60,00</strong></p>
+                <div class="btn-add-carrinho-container"></div>
+                    <button class="btn-add-carrinho">Adicionar ao Carrinho</button>
+            </div>
+    
+            <!-- Produto 2 -->
+            <div class="produto">
+                <img class="produto-imagem" src="racaoUmida2.jpg" alt="Ração Úmida: Gatos">
+                <h4>Ração Úmida para Gatos</h4>
+                <p>Descrição do Produto 2. Ração Úmida para Gatos.</p>
+                <p><strong>Preço: R$ 55,00</strong></p>
+                <div class="btn-add-carrinho-container"></div>
+                    <button class="btn-add-carrinho">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </section>
+    
+
+    <section id="catalogo-servicos">
+        <h2>Catálogo de Serviços</h2>
+    
+        <!-- Serviço: Banho -->
+        <div class="servico">
+            <h3>Banho</h3>
+    
+            <!-- Detalhes do Serviço -->
+            <p>Oferecemos banho relaxante e revitalizante para o seu pet. Seu pet ficará limpo, cheiroso e relaxado.</p>
+    
+            <!-- Opções de Agendamento -->
+            <div class="agendamento">
+                <h4>Agendamento</h4>
+                <p>Selecione uma data e horário para agendar o banho do seu pet:</p>
+                <input type="date" id="data-banho">
+                <input type="time" id="horario-banho">
+                <button class="btn-agendar">Agendar Banho</button>
+            </div>
+    
+            <!-- Tarifas -->
+            <div class="tarifas">
+                <h4>Tarifas</h4>
+                <p>Tarifa do Banho: R$ 30,00</p>
+                <p>Serviços Adicionais (opcional):</p>
+                <ul>
+                    <li>Limpeza de Ouvidos: R$ 10,00</li>
+                    <li>Corte de Unhas: R$ 15,00</li>
+                </ul>
+            </div>
+        </div>
+    
+        <!-- Serviço: Tosa -->
+        <div class="servico">
+            <h3>Tosa</h3>
+    
+            <!-- Detalhes do Serviço -->
+            <p>Nossa tosa profissional manterá o seu pet com um visual elegante. Garantimos um corte preciso e seguro.</p>
+    
+            <!-- Opções de Agendamento -->
+            <div class="agendamento">
+                <h4>Agendamento</h4>
+                <p>Selecione uma data e horário para agendar a tosa do seu pet:</p>
+                <input type="date" id="data-tosa">
+                <input type="time" id="horario-tosa">
+                <button class="btn-agendar">Agendar Tosa</button>
+            </div>
+    
+            <!-- Tarifas -->
+            <div class="tarifas">
+                <h4>Tarifas</h4>
+                <p>Tarifa da Tosa: R$ 50,00</p>
+                <p>Serviços Adicionais (opcional):</p>
+                <ul>
+                    <li>Banho: R$ 30,00</li>
+                    <li>Limpeza de Ouvidos: R$ 10,00</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+
+    <section id="area-cliente">
+        <h2>Área do Cliente</h2>
+        <div class="cliente-forms">
+            <div class="login">
+                <h3>Login</h3>
+                <form>
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" required>
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
+            <div class="cadastro">
+                <h3>Cadastro</h3>
+                <form>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" required>
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+        <div class="lista-pets">
+            <h3>Meus Pets</h3>
+            <!-- Lista de pets cadastrados aqui -->
+            <button class="btn-add-pet">Adicionar Pet</button>
+        </div>
+    </section>
+
+    <section id="gerenciamento-perfil">
+        <h2>Gerenciamento do Perfil</h2>
+        <div class="perfil-info">
+            <h3>Informações do Perfil</h3>
+            <p><strong>Nome:</strong> [Nome do Cliente]</p>
+            <p><strong>Email:</strong> [Email do Cliente]</p>
+            <p><strong>Telefone:</strong> [Telefone do Cliente]</p>
+        </div>
+        <div class="lista-pets">
+            <h3>Meus Pets</h3>
+            <ul>
+                <li>
+                    <img src="pet1.jpg" alt="Pet 1">
+                    <p><strong>Nome:</strong> [Nome do Pet]</p>
+                    <p><strong>Idade:</strong> [Idade do Pet]</p>
+                </li>
+                <li>
+                    <img src="pet2.jpg" alt="Pet 2">
+                    <p><strong>Nome:</strong> [Nome do Pet]</p>
+                    <p><strong>Idade:</strong> [Idade do Pet]</p>
+                </li>
+            </ul>
+            <button id="adicionar-pet">Adicionar Novo Pet</button>
+        </div>
+    </section>
+
+    <section id="carrinho-compras">
+        <h2>Carrinho de Compras</h2>
+        <div class="lista-produtos">
+            <!-- Exemplo de um produto no carrinho -->
+            <div class="produto">
+                <img src="racaoSeca1.jpg" alt="Produto 1">
+                <div class="Ração Seca para Cães Pedigree">
+                    <p><strong>Produto:</strong> Ração Premium</p>
+                    <p><strong>Preço:</strong> R$ 50.00</p>
+                    <div class="quantidade">
+                        <label for="quantidade-produto1">Quantidade:</label>
+                        <input type="number" id="quantidade-produto1" value="1">
+                    </div>
+                    <button class="remover-produto">Remover</button>
+                </div>
+            </div>
+        </div>
+        <div class="total">
+            <p><strong>Total a Pagar:</strong> R$ 50.00</p>
+            <button id="finalizar-compra">Finalizar Compra</button>
+        </div>
+    </section>
+    
+    
+     
+    <footer>
+        <p>&copy; 2023 PETzito</p>
+    </footer>
+    
+</body>
+</html>
+
